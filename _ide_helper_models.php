@@ -16,6 +16,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
+ * @property string|null $anggaran
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kegiatan> $kegiatans
@@ -24,6 +25,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereAnggaran($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereName($value)

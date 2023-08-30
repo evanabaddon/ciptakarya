@@ -7,7 +7,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">General Elements</li>
+        <li class="active">s</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -32,7 +32,7 @@
                         </p>
                         <div class="chart">
                             <!-- Chart Canvas -->
-                            <canvas id="chartPerBulan" style="height: 300px; width: 750px;"></canvas>
+                            <canvas id="chartPerBulan" style="height: 300px; "></canvas>
                         </div>
                         <!-- /.chart-responsive -->
                     </div>
@@ -211,5 +211,6 @@
         }
     });
 </script>
+{{--  --}}
 
 @endsection

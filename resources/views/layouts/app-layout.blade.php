@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* CSS untuk mengubah ukuran font di tabel */
     .table-smaller-font {
@@ -152,9 +152,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="{{ \Route::is('program.*') ? 'active' : '' }}"><a href="{{ route('program.index') }}"><i class="fa  fa-th-list"></i> <span>Program</span></a></li>
         <li class="{{ \Route::is('kategori-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kategori-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Kategori Kegiatan</span></a></li>
         <li class="{{ \Route::is('kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kegiatan.index') }}"><i class="fa fa-indent"></i> <span>Kegiatan</span></a></li>
+        <li class="header">REKAP</li>
         <li class="{{ \Route::is('rekap-kegiatan.*') ? 'active' : '' }}">
           <a href="{{ route('rekap-kegiatan.index') }}">
-              <i class="fa fa-file-archive-o"></i> <span>Rekap Kegiatan / Program</span>
+              <i class="fa fa-file-archive-o"></i> <span>Kegiatan Per Program</span>
+          </a>
+        </li>
+        <li class="{{ \Route::is('grafik-pagu-realisasi.*') ? 'active' : '' }}">
+          <a href="{{ route('grafik-pagu-realisasi.index') }}">
+              <i class="fa fa-bar-chart"></i> <span>Grafik Pagu / Realisasi</span>
+          </a>
+        </li>
+        <li class="{{ \Route::is('kurva-s.*') ? 'active' : '' }}">
+          <a href="{{ route('kurva-s.index') }}">
+              <i class="fa fa-line-chart"></i> <span>Grafik Kurva S</span>
           </a>
         </li>
         <li class="header">USER</li>
@@ -228,7 +239,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('adminlte') }}/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte') }}/dist/js/adminlte.min.js"></script>
-
+<link rel="stylesheet" href="{{ asset('css/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_css_select2.min.css') }}">
+<script src="{{ asset('js/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_js_select2.min.js') }}"></script>
 
 @yield('scripts')
 <script>
@@ -261,6 +273,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
               $(this).val(inputValue.replace(/[^\d]/g, ''));
           });
       });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $('.select2').select2();
   });
 </script>
 {{-- chart --}}

@@ -23,6 +23,13 @@
                         {!! Form::text('name', $kategoriKegiatan->name, ['class'=> 'form-control', 'autofocus']) !!}
                         <span class="text-danger">{{ $errors->first('name') }}</span>  
                 </div>
+                <div class="form-group mt-3">
+                    <label for="">Jumlah Anggaran Kategori Kegiatan</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">Rp</span>
+                        <input type="text" name="anggaran" class="form-control" data-rupiah="true" placeholder="0" value="{{ $kategoriKegiatan->anggaran }}">
+                    </div>
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

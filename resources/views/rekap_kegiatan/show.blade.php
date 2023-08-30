@@ -28,6 +28,7 @@
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <div class="table-responsive">
+                        
                         <table class="table table-bordered table-hover table-smaller-font">
                             <thead>
                                 <tr>
@@ -44,7 +45,7 @@
                                     <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Penyedia</th>
                                     <th rowspan="2" class="text-center" style="vertical-align: middle">Realisasi Anggaran (Rp)</th>
                                     <th colspan="2" class="text-center" style="vertical-align: middle">Kemajuan</th>
-                                    <th rowspan="2" class="text-center" style="vertical-align: middle">Sisa (Rp)</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align: middle">Selisih (Rp)</th>
                                     <th rowspan="2" class="text-center" style="vertical-align: middle">Keterangan</th>
                                 </tr>
                                 <tr>
@@ -60,13 +61,19 @@
                                 @php
                                     $currentCategory = null;
                                     $totalPaguByCategory = [];
+                                    $totalRealisasiByCategory = [];
+                                    $nomorUrut = 0;
                                 @endphp
                                 @foreach ($kegiatans as $item)
                                     @php
                                         if (!isset($totalPaguByCategory[$item->kategori_kegiatan->name])) {
                                             $totalPaguByCategory[$item->kategori_kegiatan->name] = 0;
                                         }
+                                        if (!isset($totalRealisasiByCategory[$item->kategori_kegiatan->name])) {
+                                            $totalRealisasiByCategory[$item->kategori_kegiatan->name] = 0;
+                                        }
                                         $totalPaguByCategory[$item->kategori_kegiatan->name] += $item->pagu;
+                                        $totalRealisasiByCategory[$item->kategori_kegiatan->name] += $item->realisasi;
                                     @endphp
                                 @endforeach
                         
@@ -74,6 +81,7 @@
                                     @if ($currentCategory != $item->kategori_kegiatan->name)
                                         @php
                                             $currentCategory = $item->kategori_kegiatan->name;
+                                            $nomorUrut = 0;
                                         @endphp
                                         <tr>
                                             <td colspan="2"><strong>{{ $currentCategory }}</strong></td>
@@ -85,15 +93,18 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td class="text-right"><strong>{{ number_format($totalRealisasiByCategory[$currentCategory], 0, ',', '.') }}</strong></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="text-right"><strong>{{ number_format($totalPaguByCategory[$currentCategory] - $totalRealisasiByCategory[$currentCategory] , 0, ',', '.') }}</strong></td>
                                             <td></td>
                                         </tr>
                                     @endif
+                                    @php
+                                        $nomorUrut++;
+                                    @endphp
                                     <tr>
-                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td class="text-center">{{ $nomorUrut }}</td>
                                         <td style="vertical-align: middle">{{ $item->name }}</td>
                                         <td class="text-center">{{ $item->desa }}</td>
                                         <td class="text-center">{{ $item->kecamatan }}</td>
@@ -122,13 +133,13 @@
                                 @endforelse
                             </tbody>
                         </table>
-                                                
+                                              
                         
                     </div> 
                 </div>
                 <div class="box-footer">
-                    <button class="btn btn-default print-button" onclick="printTable()"><i class="fa fa-print"></i> Cetak</button>
-                    <button class="btn btn-success print-button" onclick="exportToXLSX()"><i class="fa fa-file-excel"></i> Export XLSX</button>
+                    <button class="btn btn-primary print-button" onclick="printTable()"><i class="fa fa-print"></i> Cetak</button>
+                    <button class="btn btn-success print-button" onclick="exportToXLSX()"><i class="fa fa-file-excel-o"></i> Export XLSX</button>
                 </div>
             </div>
         </div>

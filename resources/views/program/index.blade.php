@@ -33,7 +33,8 @@
                                     <tr>
                                         <th class="text-center">NO</th>
                                         <th class="text-center">Nama Program</th>
-                                        <th class="text-center">Anggaran Program</th>
+                                        <th class="text-center">Jumlah Kegiatan</th>
+                                        <th class="text-center">Anggaran Program (Rp)</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     
@@ -43,8 +44,9 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->anggaran }}</td>
-                                            <td>
+                                            <td class="text-center">{{ $item->kegiatans->count() }}</td>
+                                            <td class="text-right">{{ number_format($item->anggaran, 0, ',', '.') }}</td>
+                                            <td class="text-center">
                                                 <a href="{{ route('program.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                                 <form action="{{ route('program.destroy',$item->id) }}" method="POST"
                                                     onsubmit="return confirm('{{ trans('Anda yakin akan menghapus? ') }}');"

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\GrafikPaguRealisasiController;
 use App\Http\Controllers\KategoriKegiatan;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\KurvaSController;
 use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,8 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('program', ProgramController::class);
     Route::resource('kegiatan', KegiatanController::class);
+    Route::resource('kurva-s', KurvaSController::class);
+    Route::resource('grafik-pagu-realisasi','\App\Http\Controllers\GrafikPaguRealisasiController');
     Route::resource('kategori-kegiatan','\App\Http\Controllers\KategoriKegiatanController');
     Route::get('villages', 'DependantDropdownController@villages')->name('villages');
     Route::get('rekap-kegiatan', 'RekapKegiatanController@index')->name('rekap-kegiatan.index');

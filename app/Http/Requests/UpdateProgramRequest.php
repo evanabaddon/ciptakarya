@@ -24,7 +24,8 @@ class UpdateProgramRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'anggaran' => 'required'
         ];
     }
 }

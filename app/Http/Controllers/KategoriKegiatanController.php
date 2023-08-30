@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KategoriKegiatan;
 use App\Http\Requests\StoreKategoriKegiatanRequest;
 use App\Http\Requests\UpdateKategoriKegiatanRequest;
+use Illuminate\Support\Facades\DB;
 
 class KategoriKegiatanController extends Controller
 {
@@ -15,8 +16,13 @@ class KategoriKegiatanController extends Controller
      */
     public function index()
     {
-        $models = KategoriKegiatan::latest()->paginate(50);
-        return view('kategori.index',compact('models'));
+            $models = KategoriKegiatan::leftJoin('kegiatans', 'kategori_kegiatans.id', '=', 'kegiatans.kategori_kegiatan_id')
+            ->select('kategori_kegiatans.*', DB::raw('COUNT(kegiatans.id) as jumlah_kegiatan'), DB::raw('SUM(kegiatans.pagu) as total_pagu'))
+            ->groupBy('kategori_kegiatans.id')
+            ->latest()
+            ->paginate(10);
+
+        return view('kategori.index', compact('models'));
     }
 
     /**
@@ -103,4 +109,6 @@ class KategoriKegiatanController extends Controller
         flash('Data berhasil dihapus');
         return redirect()->route('kategori-kegiatan.index')->with('success', 'Kategori berhasil dihapus.');
     }
+
+    
 }

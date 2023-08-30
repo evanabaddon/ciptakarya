@@ -20,12 +20,12 @@
             <div class="box-body">
                 <div class="form-group">
                     <label for="">Program</label>
-                    {!! Form::select('program_id', ['' => '--- Pilih Program ---'] + $program->pluck('name', 'id')->toArray(), null, ['class' => 'form-control']) !!}
+                    {!! Form::select('program_id', ['' => '--- Pilih Program ---'] + $program->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
                     <span class="text-danger">{{ $errors->first('program_id') }}</span> 
                 </div>
                 <div class="form-group">
                     <label for="">Kategori Kegiatan</label>
-                    {!! Form::select('kategori_kegiatan_id', ['' => '--- Pilih Kategori ---'] + $kategoriKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control']) !!}
+                    {!! Form::select('kategori_kegiatan_id', ['' => '--- Pilih Kategori ---'] + $kategoriKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
                     <span class="text-danger">{{ $errors->first('kategori_kegiatan_id') }}</span> 
                 </div>
                 <div class="form-group">
@@ -37,14 +37,14 @@
                     <div class="mb-3 col-md-6">
                         <div class="form-group mt-3">
                             <label for="">Kecamatan</label>
-                            {!! Form::select('kecamatan', ['' => '--- Pilih Kecamatan ---'] + $kec->districts->pluck('name', 'id')->toArray(), null, ['class' => 'form-control', 'id' => 'kecamatan']) !!}
+                            {!! Form::select('kecamatan', ['' => '--- Pilih Kecamatan ---'] + $kec->districts->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2', 'id' => 'kecamatan']) !!}
                             <span class="text-danger">{{ $errors->first('kecamatan') }}</span>  
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="form-group mt-3">
                             <label for="">Desa</label>
-                            {!! Form::select('desa', ['' => '--- Pilih Desa ---'], null, ['class' => 'form-control', 'id' => 'desa']) !!}
+                            {!! Form::select('desa', ['' => '--- Pilih Desa ---'], null, ['class' => 'form-control select2', 'id' => 'desa']) !!}
                             <span class="text-danger">{{ $errors->first('desa') }}</span>  
                         </div>
                     </div>

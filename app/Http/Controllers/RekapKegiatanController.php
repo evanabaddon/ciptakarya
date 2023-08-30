@@ -8,7 +8,8 @@ class RekapKegiatanController extends Controller
 {
     public function index()
     {
-        $programs = Program::all();
+        $programs = Program::withCount('kegiatans')->paginate(10);
+
         return view('rekap_kegiatan.index', compact('programs'));
     }
 
@@ -18,6 +19,7 @@ class RekapKegiatanController extends Controller
         $totalPaguPerKategori = $this->hitungTotalPaguPerKategori($kegiatans);
         return view('rekap_kegiatan.show', compact('program', 'kegiatans','totalPaguPerKategori'));
     }
+
 
     public function hitungTotalPaguPerKategori($kegiatans)
     {
@@ -33,4 +35,5 @@ class RekapKegiatanController extends Controller
 
         return $totalPaguPerKategori;
     }
+
 }

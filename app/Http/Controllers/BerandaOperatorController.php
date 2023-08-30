@@ -12,7 +12,7 @@ class BerandaOperatorController extends Controller
         $chartKegiatan = $homeController->tampilChartPerBulan();
         $kegiatanTerakhir = $homeController->kegiatanTerakhir();
         $kategoriKegiatanTerakhir = $homeController->kategoriKegiatanTerakhir();
-        
+        $getComparisonChartData = $homeController->getComparisonChartData();
 
         return view('operator.beranda_index', 
         [
@@ -21,6 +21,7 @@ class BerandaOperatorController extends Controller
             'chartKegiatan' => $chartKegiatan,
             'kegiatanTerakhir' => $kegiatanTerakhir,
             'kategoriKegiatanTerakhir'=> $kategoriKegiatanTerakhir,
+            'getComparisonChartData'=> $getComparisonChartData,
         ]);
     }
 

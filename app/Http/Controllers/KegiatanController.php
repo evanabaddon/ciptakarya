@@ -20,9 +20,9 @@ class KegiatanController extends Controller
     public function index(Request $request)
     {
         if ($request->filled('q')) {
-           $models = Kegiatan::search($request->q)->paginate(50);
+            $models = Kegiatan::search($request->q)->paginate(25);
         }else{
-            $models = Kegiatan::with('program')->latest()->paginate(50);
+            $models = Kegiatan::with('program')->paginate(25);
         }
         return view('kegiatan.index', compact('models'));
     }

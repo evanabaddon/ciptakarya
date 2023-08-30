@@ -33,6 +33,8 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Nama Kategori Kegiatan</th>
+                                        <th class="text-center">Jumlah Kegiatan</th>
+                                        <th class="text-center">Total Pagu</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     
@@ -42,7 +44,9 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>
+                                            <td class="text-center">{{ $item->kegiatans->count() }}</td>
+                                            <td class="text-center">{{ number_format($item->total_pagu, 0, ',', '.') }}</td>
+                                            <td class="text-center">
                                                 <a href="{{ route('kategori-kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                                 <form action="{{ route('kategori-kegiatan.destroy',$item->id) }}" method="POST"
                                                     onsubmit="return confirm('{{ trans('Anda yakin akan menghapus? ') }}');"
@@ -61,6 +65,8 @@
                                 </tbody>
                             </table>
                         </div> 
+                    </div>
+                    <div class="box-footer clearfix">
                         {!! $models->links() !!}
                     </div>
                 </div>

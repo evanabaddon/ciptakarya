@@ -78,9 +78,8 @@ class ProgramController extends Controller
      */
     public function update(UpdateProgramRequest $request, Program $program)
     {
-        $program->update([
-            'name' => $request->name,
-        ]);
+        $validatedData = $request->validated();
+        $program->update($validatedData);
         flash('Data berhasil diupdate');
         return redirect(route('program.index'));
     }

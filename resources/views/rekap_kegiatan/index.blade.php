@@ -34,6 +34,8 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Program</th>
+                                    <th class="text-center">Jumlah Anggaran (Rp)</th>
+                                    <th class="text-center">Jumlah Kegiatan</th>
                                 </tr>
                                 
                             </thead>
@@ -42,6 +44,8 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td><a href="{{ route('rekap-kegiatan.show', $item) }}">{{ $item->name }}</a></td>
+                                    <td class="text-right">{{ number_format($item->anggaran, 0, ',', '.') }}</a></td>
+                                    <td class="text-center">{{ $item->kegiatans_count }}</td>
                                 </tr>
                                 @empty
                                     <tr>

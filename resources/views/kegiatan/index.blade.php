@@ -3,8 +3,8 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Rekap Data
-            <small>Rekap Data Berdasarkan Progam</small>
+            Data Kegiatan
+            <small>List Data Kegiatan</small>
         </h1>
     </section>
     <!-- Main content -->
@@ -27,6 +27,9 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
+
+                        
+                                                                        
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -43,38 +46,43 @@
                             <tbody>
                                 @php
                                     $currentCategory = null;
+                                    $nomorUrut = 0;
                                 @endphp
                                 @forelse ($models as $item)
                                     @if ($currentCategory != $item->kategori_kegiatan->name)
                                         @php
                                             $currentCategory = $item->kategori_kegiatan->name;
+                                            $nomorUrut = 0;
                                         @endphp
                                         <tr>
-                                            <td colspan="7"><strong>{{ $currentCategory }}</strong></td>
+                                            <td colspan="8"><strong>{{ $currentCategory }}</strong></td>
                                         </tr>
                                     @endif
+                                    @php
+                                        $nomorUrut++;
+                                    @endphp
                                     <tr>
-                                        <td class="text-center" style="vertical-align: middle">{{ $loop->iteration }}</td>
+                                        <td class="text-center" style="vertical-align: middle">{{ $nomorUrut }}</td>
                                         <td style="vertical-align: middle">{{ $item->name }}</td>
                                         <td class="text-right" style="vertical-align: middle">{{ number_format($item->pagu, 0, ',', '.') }}</td>
                                         <td style="vertical-align: middle">{{ $item->nokontrak }}</td>
                                         <td>{{ $item->desa ? Indonesia::findVillage($item->desa)->name : '' }}</td>
-                                            <td>{{ $item->kecamatan ? Indonesia::findDistrict($item->kecamatan)->name : ''}}</td>
-                                            <td class="text-center">
-                                                @if ($item->tglkontrak !== null)
-                                                    {{ date('d M Y', strtotime($item->tglkontrak)) }}
-                                                @else
-                                                    {{ '' }}
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                                <form action="{{ route('kegiatan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('{{ trans('Anda yakin akan menghapus? ') }}');" style="display: inline-block;">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>
-                                                </form>
-                                            </td>
+                                        <td>{{ $item->kecamatan ? Indonesia::findDistrict($item->kecamatan)->name : ''}}</td>
+                                        <td class="text-center">
+                                            @if ($item->tglkontrak !== null)
+                                                {{ date('d M Y', strtotime($item->tglkontrak)) }}
+                                            @else
+                                                {{ '' }}
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                            <form action="{{ route('kegiatan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('{{ trans('Anda yakin akan menghapus? ') }}');" style="display: inline-block;">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -84,57 +92,16 @@
                             </tbody>
                         </table>
                         
+                        
                             
-                            {{-- <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">No</th>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">Kegiatan</th>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nomor Kontrak</th>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">Desa</th>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">Kecamatan</th>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">Tanggal Kontrak</th>
-                                        <th rowspan="2" class="text-center" style="vertical-align: middle">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $currentCategory = null;
-                                    @endphp
-                                    @forelse ($models as $item)
-                                        <tr>
-                                            <td style="text-align: center">{{ $loop->iteration }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->nokontrak }}</td>
-                                            <td>{{ $item->desa ? Indonesia::findVillage($item->desa)->name : '' }}</td>
-                                            <td>{{ $item->kecamatan ? Indonesia::findDistrict($item->kecamatan)->name : ''}}</td>
-                                            <td class="text-center">
-                                                @if ($item->tglkontrak !== null)
-                                                    {{ date('d F Y', strtotime($item->tglkontrak)) }}
-                                                @else
-                                                    {{ '' }}
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                                <form action="{{ route('kegiatan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('{{ trans('Anda yakin akan menghapus? ') }}');" style="display: inline-block;">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="7" style="text-align: center;">Data tidak ada</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table> --}}
+                           
                             
-                        </div> 
+                    </div> 
+                        
+                    <div class="box-footer clearfix">
                         {!! $models->links() !!}
                     </div>
+                    
                 </div>
             </div>
         </div>
