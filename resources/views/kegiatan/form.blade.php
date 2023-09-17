@@ -24,14 +24,22 @@
                     <span class="text-danger">{{ $errors->first('program_id') }}</span> 
                 </div>
                 <div class="form-group">
-                    <label for="">Kategori Kegiatan</label>
-                    {!! Form::select('kategori_kegiatan_id', ['' => '--- Pilih Kategori ---'] + $kategoriKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
-                    <span class="text-danger">{{ $errors->first('kategori_kegiatan_id') }}</span> 
+                    <label for="">Sub Kegiatan</label>
+                    {!! Form::select('sub_kegiatan_id', ['' => '--- Pilih Sub Kegiatan ---'] + $subKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
+                    <span class="text-danger">{{ $errors->first('sub_kegiatan_id') }}</span> 
+                </div>
+                <div class="horizontal-divider mt-lg-5 mb-lg-5">
+                    <span>Detail Kegiatan</span>
                 </div>
                 <div class="form-group">
                     <label for="">Nama Kegiatan</label>
                     {!! Form::text('name', null, ['class'=> 'form-control', 'autofocus']) !!}
                     <span class="text-danger">{{ $errors->first('name') }}</span>  
+                </div>
+                <div class="form-group">
+                    <label for="">Jenis Kegiatan</label>
+                    {!! Form::select('kategori_kegiatan_id', ['' => '--- Pilih Jenis Kegiatan ---'] + $kategoriKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
+                    <span class="text-danger">{{ $errors->first('kategori_kegiatan_id') }}</span> 
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-6">
@@ -144,6 +152,7 @@
                 <button type="reset" class="btn btn-default">Reset</button>
                 <button type="submit" class="btn btn-primary pull-right">Simpan</button>
             </div>
+            
         </form>
       </div>
 </section>

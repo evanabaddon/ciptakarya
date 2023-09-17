@@ -52,6 +52,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
             transform: translateX(-100%);
         }
     }
+  
+    .horizontal-divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+    }
+
+    .horizontal-divider span {
+    flex: 1;
+    text-align: center;
+    }
+
+    .horizontal-divider::before,
+    .horizontal-divider::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #000; /* Customize the line color and style as needed */
+    margin: 0 10px; /* Adjust the spacing between the line and text */
+    }
+
+
 
   </style>
   <style>
@@ -150,7 +172,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="header">UTAMA</li>
         <li class="{{ \Route::is('operator.beranda') ? 'active' : '' }}"><a href="{{ route('operator.beranda') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li class="{{ \Route::is('program.*') ? 'active' : '' }}"><a href="{{ route('program.index') }}"><i class="fa  fa-th-list"></i> <span>Program</span></a></li>
-        <li class="{{ \Route::is('kategori-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kategori-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Kategori Kegiatan</span></a></li>
+        <li class="{{ \Route::is('sub-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('sub-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Sub Kegiatan</span></a></li>
+        <li class="{{ \Route::is('kategori-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kategori-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Jenis Kegiatan</span></a></li>
         <li class="{{ \Route::is('kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kegiatan.index') }}"><i class="fa fa-indent"></i> <span>Kegiatan</span></a></li>
         <li class="header">REKAP</li>
         <li class="{{ \Route::is('rekap-kegiatan.*') ? 'active' : '' }}">

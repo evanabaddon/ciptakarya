@@ -26,6 +26,7 @@ class UpdateKegiatanRequest extends FormRequest
         return [
             'program_id' => 'required|exists:programs,id',
             'kategori_kegiatan_id' => 'required|exists:kategori_kegiatans,id',
+            'sub_kegiatan_id' => 'required|exists:sub_kegiatans,id',
             'name' => 'required|string|max:255',
             'kecamatan' => 'nullable|exists:districts,id',
             'desa' => 'nullable|exists:villages,id',

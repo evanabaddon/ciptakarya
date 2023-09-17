@@ -39,6 +39,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('kurva-s', KurvaSController::class);
     Route::resource('grafik-pagu-realisasi','\App\Http\Controllers\GrafikPaguRealisasiController');
     Route::resource('kategori-kegiatan','\App\Http\Controllers\KategoriKegiatanController');
+    Route::resource('sub-kegiatan','\App\Http\Controllers\SubKegiatanController');
     Route::get('villages', 'DependantDropdownController@villages')->name('villages');
     Route::get('rekap-kegiatan', 'RekapKegiatanController@index')->name('rekap-kegiatan.index');
     Route::get('rekap-kegiatan/{program}', 'RekapKegiatanController@show')->name('rekap-kegiatan.show');

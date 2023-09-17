@@ -16,7 +16,6 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string|null $anggaran
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kegiatan> $kegiatans
@@ -25,7 +24,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan query()
- * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereAnggaran($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|KategoriKegiatan whereName($value)
@@ -56,10 +54,12 @@ namespace App\Models{
  * @property string|null $keterangan
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $sub_kegiatan_id
  * @property-read \App\Models\KategoriKegiatan|null $kategori_kegiatan
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Program|null $program
+ * @property-read \App\Models\SubKegiatan|null $sub_kegiatans
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\KegiatanFactory factory($count = null, $state = [])
@@ -84,6 +84,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan wherePenyedia($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereProgramId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereRealisasi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereSubKegiatanId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereTglkontrak($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereUpdatedAt($value)
  */
@@ -116,6 +117,28 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Program whereUpdatedAt($value)
  */
 	class Program extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\SubKegiatan
+ *
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kegiatan> $kegiatans
+ * @property-read int|null $kegiatans_count
+ * @method static \Database\Factories\SubKegiatanFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubKegiatan whereUpdatedAt($value)
+ */
+	class SubKegiatan extends \Eloquent {}
 }
 
 namespace App\Models{

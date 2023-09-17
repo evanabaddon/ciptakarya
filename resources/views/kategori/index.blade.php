@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">
-                        <a href="{{ route('kategori-kegiatan.create') }}" class="btn btn-primary">Tambah Kategori</a>
+                        <a href="{{ route('kategori-kegiatan.create') }}" class="btn btn-primary">Tambah Jenis Kegiatan</a>
                         <div class="box-tools">
                           <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">

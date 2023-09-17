@@ -13,6 +13,7 @@ class Kegiatan extends Model
 
     protected $fillable = [
         'program_id',
+        'sub_kegiatan_id',
         'kategori_kegiatan_id',
         'name',
         'desa',
@@ -46,6 +47,10 @@ class Kegiatan extends Model
         return $this->belongsTo(KategoriKegiatan::class);
     }
 
+    public function sub_kegiatans()
+    {
+        return $this->belongsTo(SubKegiatan::class);
+    }
 
 
 }

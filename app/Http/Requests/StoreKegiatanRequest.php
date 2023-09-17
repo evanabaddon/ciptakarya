@@ -26,10 +26,11 @@ class StoreKegiatanRequest extends FormRequest
         return [
             'program_id' => 'required',
             'kategori_kegiatan_id' => 'required',
+            'sub_kegiatan_id' => 'required',
             'name' => 'required',
             'desa' => 'nullable',
             'kecamatan' => 'nullable',
-            'pagu' => 'required',
+            'pagu' => 'nullable|numeric',
             'nilaikontrak' => 'nullable|numeric',
             'nokontrak' => 'nullable',
             'tglkontrak' => 'nullable|date',

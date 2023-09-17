@@ -15,8 +15,9 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="{{ route('kategori-kegiatan.store') }}" method="POST">
+        <form role="form" action="{{ route('kategori-kegiatan.update', $kategoriKegiatan->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="box-body">
                 <div class="form-group">
                     <label for="">Nama Kategori Kegiatan</label>

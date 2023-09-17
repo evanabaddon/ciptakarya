@@ -7,6 +7,7 @@ use App\Http\Requests\StoreKegiatanRequest;
 use App\Http\Requests\UpdateKegiatanRequest;
 use App\Models\KategoriKegiatan;
 use App\Models\Program;
+use App\Models\SubKegiatan;
 use Illuminate\Http\Request;
 use Indonesia;
 
@@ -34,10 +35,12 @@ class KegiatanController extends Controller
      */
     public function create()
     {
+        
         $program = Program::all();
         $kategoriKegiatan = KategoriKegiatan::all();
+        $subKegiatan = SubKegiatan::all();
         $kec= Indonesia::findCity(234, ['districts']); 
-        return  view('kegiatan.form',compact('program','kategoriKegiatan','kec'));
+        return  view('kegiatan.form',compact('program','kategoriKegiatan','kec','subKegiatan'));
     }
 
     /**
@@ -48,8 +51,9 @@ class KegiatanController extends Controller
      */
     public function store(StoreKegiatanRequest $request)
     {
+       
         $validatedData = $request->validated();
-
+        
         Kegiatan::create($validatedData);
 
         return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil ditambahkan.');
@@ -78,8 +82,9 @@ class KegiatanController extends Controller
         $program = Program::all();
         $kategoriKegiatan = KategoriKegiatan::all();
         $kec = Indonesia::findCity(234, ['districts']);
+        $subKegiatan = SubKegiatan::all();
         
-        return view('kegiatan.edit', compact('kegiatan', 'program', 'kategoriKegiatan', 'kec'));
+        return view('kegiatan.edit', compact('kegiatan', 'program', 'kategoriKegiatan', 'kec', 'subKegiatan'));
     }
 
     /**

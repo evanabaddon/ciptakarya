@@ -11,7 +11,7 @@
 <section class="content">
     <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Form Kategori Kegiatan</h3>
+          <h3 class="box-title">Form Jenis Kegiatan</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -19,7 +19,7 @@
             @csrf
             <div class="box-body">
                 <div class="form-group">
-                    <label for="">Nama Kategori Kegiatan</label>
+                    <label for="">Nama Jenis Kegiatan</label>
                         {!! Form::text('name', null, ['class'=> 'form-control', 'autofocus']) !!}
                         <span class="text-danger">{{ $errors->first('name') }}</span>  
                 </div>
