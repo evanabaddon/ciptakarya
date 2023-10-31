@@ -25,6 +25,7 @@ class UpdateSubKegiatanRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'bidang_id' => 'required|integer',
         ];
     }
 }

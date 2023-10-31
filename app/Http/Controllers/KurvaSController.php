@@ -10,8 +10,28 @@ class KurvaSController extends Controller
     {
         $kurvaSData = $this->getKurvaSData();
 
+        $kegiatans = Kegiatan::all();
+
+        // Hitung total jumlah pagu
+        $totalPagu = $kegiatans->sum('pagu');
+
+        // hitung total pagu per bulan
+        $totalPaguPerBulan = $kegiatans->groupBy(function ($kegiatan) {
+            return date('n', strtotime($kegiatan->created_at));
+        })->map(function ($kegiatans) {
+            return $kegiatans->sum('pagu');
+        });
+
+        // hitung bobot per bulan (total pagu per bulan / total pagu) x 100%
+        $bobotPerBulan = $totalPaguPerBulan->map(function ($totalPagu) use ($totalPaguPerBulan) {
+            return round(($totalPagu / $totalPaguPerBulan->sum()) * 100, 2);
+        });
+
         return view('grafik_kurva_s.index', [
             'kurvaSData' => $kurvaSData,
+            'totalPagu' => $totalPagu,
+            'totalPaguPerBulan' => $totalPaguPerBulan,
+            'bobotPerBulan' => $bobotPerBulan,
         ]);
     }
 
@@ -26,6 +46,8 @@ class KurvaSController extends Controller
             'rencanaTotals' => array_fill(0, 12, 0),
             'realisasiTotals' => array_fill(0, 12, 0),
         ];
+
+        
 
         foreach ($programs as $program) {
             foreach ($program->kegiatans as $kegiatan) {

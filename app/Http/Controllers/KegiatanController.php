@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use App\Http\Requests\StoreKegiatanRequest;
 use App\Http\Requests\UpdateKegiatanRequest;
+use App\Models\Bidang;
 use App\Models\KategoriKegiatan;
 use App\Models\Program;
 use App\Models\SubKegiatan;
@@ -20,11 +21,16 @@ class KegiatanController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->filled('q')) {
-            $models = Kegiatan::search($request->q)->paginate(25);
-        }else{
-            $models = Kegiatan::with('program')->paginate(25);
+        // GET user bidang_id
+        $bidang_id = auth()->user()->bidang_id;
+
+        // jika $bidang_id, maka tampilkan berdasarkan bidang_id
+        if ($bidang_id) {
+            $models = Kegiatan::where('bidang_id', $bidang_id)->latest()->paginate(50);
+        } else {
+            $models = Kegiatan::latest()->paginate(50);
         }
+
         return view('kegiatan.index', compact('models'));
     }
 
@@ -35,12 +41,12 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-        
+        $bidang = Bidang::all();
         $program = Program::all();
         $kategoriKegiatan = KategoriKegiatan::all();
         $subKegiatan = SubKegiatan::all();
         $kec= Indonesia::findCity(234, ['districts']); 
-        return  view('kegiatan.form',compact('program','kategoriKegiatan','kec','subKegiatan'));
+        return  view('kegiatan.form',compact('program','kategoriKegiatan','kec','subKegiatan','bidang'));
     }
 
     /**
@@ -67,8 +73,17 @@ class KegiatanController extends Controller
      */
     public function show(Kegiatan $kegiatan)
     {
-        $models = Kegiatan::findOrFail($kegiatan->id);
-        return view('kegiatan.show',compact('models'));
+        // kegiatan with program, kategori_kegiatan, sub_kegiatan, bidang
+        $kegiatan = Kegiatan::with('program','kategori_kegiatan', 'sub_kegiatans','bidang')->findOrFail($kegiatan->id);
+
+        // kecamatan
+        $kecamatan = Indonesia::findDistrict($kegiatan->kecamatan)->toArray();
+
+        // desa
+        $desa = Indonesia::findVillage($kegiatan->desa)->toArray();
+
+
+        return view('kegiatan.show',compact('kegiatan','kecamatan','desa'));
     }
 
     /**
@@ -79,12 +94,13 @@ class KegiatanController extends Controller
      */
     public function edit(Kegiatan $kegiatan)
     {
+        $bidang = Bidang::all();
         $program = Program::all();
         $kategoriKegiatan = KategoriKegiatan::all();
         $kec = Indonesia::findCity(234, ['districts']);
         $subKegiatan = SubKegiatan::all();
         
-        return view('kegiatan.edit', compact('kegiatan', 'program', 'kategoriKegiatan', 'kec', 'subKegiatan'));
+        return view('kegiatan.edit', compact('kegiatan', 'program', 'kategoriKegiatan', 'kec', 'subKegiatan','bidang'));
     }
 
     /**

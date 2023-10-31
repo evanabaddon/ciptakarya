@@ -12,31 +12,43 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="box">
+                <!-- /.filter berdasarkan bulan -->
                 <div class="box-header">
                     {{-- <h3 class="box-title">{{ $program->name }}</h3> --}}
                     <div class="box-tools">
-                      <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-        
-                        <div class="input-group-btn">
-                          <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                      </div>
-                      
+                        <form id="filterForm" action="{{ route('rekap-kegiatan.show', $bidang->id) }}" method="GET">
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <select name="bulan" class="form-control">
+                                    <option value="">Pilih Bulan</option>
+                                    @foreach ($bulan as $key => $value)
+                                        <option value="{{ $key }}" {{ request('bulan') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary" id="filterButton"><i class="fa fa-search"></i>  Filter</button>
+                                    <a href="{{ route('rekap-kegiatan.show', $bidang->id) }}" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <div class="table-responsive">
-                        
                         <table class="table table-bordered table-hover table-smaller-font">
                             <thead>
                                 <tr>
-                                    <th colspan="15" class="text-center">{{ $program->name }}</th>
+                                    <th colspan="15" class="text-center">Rekap Data Program dan Kegiatan Bidang {{ $bidang->name }}</th>
+                                    
                                 </tr>
+                                @if (request('bulan'))
+                                    <tr>
+                                        <th colspan="15" class="text-center">Bulan {{ $bulan[request('bulan')] }}</th>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <th rowspan="2" class="text-center" style="vertical-align: middle">No</th>
-                                    <th rowspan="2" class="text-center" style="vertical-align: middle">Kegiatan</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align: middle">Uraian</th>
                                     <th colspan="2" class="text-center" style="vertical-align: middle">Lokasi</th>
                                     <th colspan="2" class="text-center" style="vertical-align: middle">Biaya</th>
                                     <th rowspan="2" class="text-center" style="vertical-align: middle">No Kontrak</th>
@@ -59,82 +71,71 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $currentCategory = null;
-                                    $totalPaguByCategory = [];
-                                    $totalRealisasiByCategory = [];
+                                    $currentProgram = null;
+                                    $currentKategori = null;
+                                    $currentSubKegiatan = null;
                                     $nomorUrut = 0;
                                 @endphp
-                                @foreach ($kegiatans as $item)
-                                    @php
-                                        if (!isset($totalPaguByCategory[$item->kategori_kegiatan->name])) {
-                                            $totalPaguByCategory[$item->kategori_kegiatan->name] = 0;
-                                        }
-                                        if (!isset($totalRealisasiByCategory[$item->kategori_kegiatan->name])) {
-                                            $totalRealisasiByCategory[$item->kategori_kegiatan->name] = 0;
-                                        }
-                                        $totalPaguByCategory[$item->kategori_kegiatan->name] += $item->pagu;
-                                        $totalRealisasiByCategory[$item->kategori_kegiatan->name] += $item->realisasi;
-                                    @endphp
-                                @endforeach
-                        
-                                @forelse ($kegiatans as $item)
-                                    @if ($currentCategory != $item->kategori_kegiatan->name)
+                                @foreach ($kegiatans as $programName => $programItems)
+                                    <tr class="table-active">
+                                        <td colspan="15"><strong>Program : {{ $programName }}</strong></td>
+                                    </tr>
+                                    @if ($currentProgram != $programName)
                                         @php
-                                            $currentCategory = $item->kategori_kegiatan->name;
+                                            $currentProgram = $programName;
                                             $nomorUrut = 0;
                                         @endphp
-                                        <tr>
-                                            <td colspan="2"><strong>{{ $currentCategory }}</strong></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-right"><strong>{{ number_format($totalPaguByCategory[$currentCategory], 0, ',', '.') }}</strong></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-right"><strong>{{ number_format($totalRealisasiByCategory[$currentCategory], 0, ',', '.') }}</strong></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-right"><strong>{{ number_format($totalPaguByCategory[$currentCategory] - $totalRealisasiByCategory[$currentCategory] , 0, ',', '.') }}</strong></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($programItems as $kategoriName => $kategoriItems)
+                                            @php
+                                                $currentProgram = $programName;
+                                                $currentKategori = $kategoriName;
+                                                $currentSubKegiatan = null;
+                                                $nomorUrut = 0;
+                                                
+                                            @endphp
+                                            <tr class="table-active">
+                                                <td colspan="15"><strong>Jenis Kegiatan : {{ $kategoriName }}<strong></td>
+                                            </tr>
+                                                @foreach ($kategoriItems as $subKegiatanName  => $subKegiatanItems)
+                                                <tr>
+                                                    <td colspan="15"><strong>Kegiatan : {{ $subKegiatanName }}<strong></td>
+                                                </tr>
+                                                @foreach ($subKegiatanItems as $item)
+                                                    <tr>
+                                                        <td>@php
+                                                            $nomorUrut++;
+                                                            echo $nomorUrut;
+                                                        @endphp</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->desa }}</td>
+                                                        <td>{{ $item->kecamatan }}</td>
+                                                        <td class="text-right" style="vertical-align: middle">{{ number_format($item->pagu, 0, ',', '.') }}</td>
+                                                        <td class="text-right" style="vertical-align: middle">{{ number_format($item->nilai_kontrak, 0, ',', '.') }}</td>
+                                                        <td>{{ $item->nokontrak }}</td>
+                                                        <td class="text-center">
+                                                            @if ($item->tglkontrak !== null)
+                                                                {{ date('d M Y', strtotime($item->tglkontrak)) }}
+                                                            @else
+                                                                {{ '' }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">{{ $item->batas_pelaksanaan }}</td>
+                                                        <td>{{ $item->penyedia }}</td>
+                                                        <td class="text-right" style="vertical-align: middle">{{ number_format($item->realisasi, 0, ',', '.') }}</td>
+                                                        <td class="text-center" style="vertical-align: middle">{{ $item->keuangan ?? 0 }}%</td>
+                                                        <td class="text-center" style="vertical-align: middle">{{ $item->fisik ?? 0 }}%</td>
+                                                        <td class="text-right" style="vertical-align: middle">{{ number_format($item->pagu - $item->realisasi, 0, ',', '.') }}</td>
+                                                        <td style="vertical-align: middle">{{ $item->keterangan }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                            
+                                        @endforeach
                                     @endif
-                                    @php
-                                        $nomorUrut++;
-                                    @endphp
-                                    <tr>
-                                        <td class="text-center">{{ $nomorUrut }}</td>
-                                        <td style="vertical-align: middle">{{ $item->name }}</td>
-                                        <td class="text-center">{{ $item->desa }}</td>
-                                        <td class="text-center">{{ $item->kecamatan }}</td>
-                                        <td class="text-right">{{ number_format($item->pagu, 0, ',', '.') }}</td>
-                                        <td class="text-right">{{ number_format($item->nilaikontrak, 0, ',', '.') }}</td>
-                                        <td>{{ $item->nokontrak }}</td>
-                                        <td>
-                                            @if ($item->tglkontrak !== null)
-                                                {{ date('d M Y', strtotime($item->tglkontrak)) }}
-                                            @else
-                                                {{ '' }}
-                                            @endif
-                                        </td>
-                                        <td style="vertical-align: middle">{{ $item->bataspelaksanaan }}</td>
-                                        <td style="vertical-align: middle">{{ $item->namapenyedia }}</td>
-                                        <td class="text-right" style="vertical-align: middle">{{ number_format($item->realisasi, 0, ',', '.') }}</td>
-                                        <td class="text-center" style="vertical-align: middle">{{ $item->keuangan ?? 0 }}%</td>
-                                        <td class="text-center" style="vertical-align: middle">{{ $item->fisik ?? 0 }}%</td>
-                                        <td class="text-right" style="vertical-align: middle">{{ number_format($item->pagu - $item->realisasi, 0, ',', '.') }}</td>
-                                        <td style="vertical-align: middle">{{ $item->keterangan }}</td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="15" class="text-center">Data tidak ada</td>
-                                    </tr>
-                                @endforelse
+                                    
+                                @endforeach
                             </tbody>
                         </table>
-                                              
-                        
                     </div> 
                 </div>
                 <div class="box-footer">
@@ -146,51 +147,19 @@
     </div>
 </section>
 @endsection
+
 @section('scripts')
 {{-- Cetak --}}
+
 <script>
     function printTable() {
-        var tableContent = document.querySelector('.table').outerHTML;
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Cetak Tabel</title>
-                <style>
-                    body {
-                        font-family: Calibri, sans-serif;
-                        font-size: 11px;
-                    }
-                    table {
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-                    th, td {
-                        border: 1px solid black;
-                        padding: 4px;
-                        text-align: left;
-                    }
-                    th {
-                        text-align: center;
-                        background-color: #f2f2f2;
-                    }
-                    .text-right {
-                        text-align: right;
-                    }
-                </style>
-            </head>
-            <body>
-                ${tableContent}
-            </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.print();
+        var printContents = document.querySelector('.table-responsive').outerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
     }
 </script>
-
-
-
 
 <script>
     function exportToXLSX() {
@@ -211,6 +180,5 @@
         link.click();
     }
 </script>
-
-
 @endsection
+

@@ -73,8 +73,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     margin: 0 10px; /* Adjust the spacing between the line and text */
     }
 
-
-
   </style>
   <style>
     @media print {
@@ -171,28 +169,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">UTAMA</li>
         <li class="{{ \Route::is('operator.beranda') ? 'active' : '' }}"><a href="{{ route('operator.beranda') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        @if (Auth::user()->akses == 'admin')
+          <li class="{{ \Route::is('bidang.*') ? 'active' : '' }}"><a href="{{ route('bidang.index') }}"><i class="fa fa-industry"></i> <span>Bidang</span></a></li>
+        @endif
         <li class="{{ \Route::is('program.*') ? 'active' : '' }}"><a href="{{ route('program.index') }}"><i class="fa  fa-th-list"></i> <span>Program</span></a></li>
-        <li class="{{ \Route::is('sub-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('sub-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Sub Kegiatan</span></a></li>
-        <li class="{{ \Route::is('kategori-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kategori-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Jenis Kegiatan</span></a></li>
-        <li class="{{ \Route::is('kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kegiatan.index') }}"><i class="fa fa-indent"></i> <span>Kegiatan</span></a></li>
-        <li class="header">REKAP</li>
-        <li class="{{ \Route::is('rekap-kegiatan.*') ? 'active' : '' }}">
-          <a href="{{ route('rekap-kegiatan.index') }}">
-              <i class="fa fa-file-archive-o"></i> <span>Kegiatan Per Program</span>
-          </a>
-        </li>
-        <li class="{{ \Route::is('grafik-pagu-realisasi.*') ? 'active' : '' }}">
-          <a href="{{ route('grafik-pagu-realisasi.index') }}">
-              <i class="fa fa-bar-chart"></i> <span>Grafik Pagu / Realisasi</span>
-          </a>
-        </li>
-        <li class="{{ \Route::is('kurva-s.*') ? 'active' : '' }}">
-          <a href="{{ route('kurva-s.index') }}">
-              <i class="fa fa-line-chart"></i> <span>Grafik Kurva S</span>
-          </a>
-        </li>
-        <li class="header">USER</li>
-        <li class="{{ \Route::is('user.*') ? 'active' : '' }}"><a href="{{ route('user.index') }}"><i class="fa fa-users"></i> <span>Data User</span></a></li>
+        <li class="{{ \Route::is('kategori-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kategori-kegiatan.index') }}"><i class="fa fa-th-large"></i> <span>Jenis Sub Kegiatan</span></a></li>
+        <li class="{{ \Route::is('sub-kegiatan.*') ? 'active' : '' }}"><a href="{{ route('sub-kegiatan.index') }}"><i class="fa fa-th"></i> <span>Kegiatan</span></a></li>
+        <li class="{{ \Route::is('kegiatan.*') ? 'active' : '' }}"><a href="{{ route('kegiatan.index') }}"><i class="fa fa-indent"></i> <span>Sub Kegiatan</span></a></li>
+        @if (Auth::user()->akses == 'admin')
+          <li class="header">REKAP</li>
+          <li class="{{ \Route::is('rekap-kegiatan.*') ? 'active' : '' }}">
+            <a href="{{ route('rekap-kegiatan.index') }}">
+                <i class="fa fa-file-archive-o"></i> <span>Kegiatan Per Bidang</span>
+            </a>
+          </li>
+          <li class="{{ \Route::is('grafik-pagu-realisasi.*') ? 'active' : '' }}">
+            <a href="{{ route('grafik-pagu-realisasi.index') }}">
+                <i class="fa fa-bar-chart"></i> <span>Grafik Pagu / Realisasi</span>
+            </a>
+          </li>
+          <li class="{{ \Route::is('kurva-s.*') ? 'active' : '' }}">
+            <a href="{{ route('kurva-s.index') }}">
+                <i class="fa fa-line-chart"></i> <span>Grafik Kurva S</span>
+            </a>
+          </li>
+          <li class="header">USER</li>
+          <li class="{{ \Route::is('user.*') ? 'active' : '' }}"><a href="{{ route('user.index') }}"><i class="fa fa-users"></i> <span>Data User</span></a></li>
+        @endif
       </ul>
       <!-- /.sidebar-menu -->
     </section>

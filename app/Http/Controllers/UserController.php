@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Bidang;
 use Illuminate\Http\Request;
 use App\Models\User as Model;
 
@@ -19,13 +21,13 @@ class UserController extends Controller
      */
     public function index()
     {
-
         return view('operator.' . $this->viewIndex, [
             'models' => Model::where('akses', '<>', 'nasabah')
                 ->latest()
                 ->paginate(50),
                 'routePrefix' => $this->routePrefix,
-                'title' => 'User'
+                'title' => 'User',
+            
         ]);    
     }
 
@@ -36,8 +38,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $bidang = Bidang::all();
         $data = [
             'model' => new Model(),
+            'bidang' => $bidang->pluck('name', 'id'),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'SIMPAN',
@@ -54,15 +58,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(request() -> all());
         $requestData = $request->validate(
             [
                 'name' => 'required',
                 'email' => 'email|unique:users',
                 'nohp' => 'required|unique:users',
                 'password'=> 'required',
-                'akses' => 'required|in:operator,admin'
+                'akses' => 'required|in:operator,admin',
+                'bidang_id' => 'required|exists:bidangs,id',
             ]
         );
+
+        // dd($requestData);
         $requestData['password'] = bcrypt($requestData['password']);
         $requestData['email_verified_at'] = now();
         Model::create($requestData);
@@ -89,13 +97,18 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $bidang = Bidang::all();
+
         $data = [
             'model' => Model::findOrFail($id),
+            'bidang' => $bidang->pluck('name', 'id'),
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'UPDATE',
             'title' => 'User'
         ];
+
+        // dd($data);
         return view('operator.' . $this->viewEdit,$data);
     }
 
@@ -108,26 +121,32 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $requestData = $request->validate(
-            [
-                'name' => 'required',
-                'email' => 'email|unique:users,email,' . $id,
-                'nohp' => 'required|unique:users,nohp,' . $id,
-                'password'=> 'nullable',
-                'akses' => 'required|in:operator,admin'
-            ]
-        );
         $model = Model::findOrFail($id);
-        if ($requestData['password'] == "") {
+        $requestData = $request->only(['name', 'password', 'akses', 'bidang_id', 'nohp']);
+
+        if ($request->has('email') && $requestData['email'] != $model->email) {
+            // Validasi email jika email diubah
+            $request->validate([
+                'email' => 'required|email|unique:users,email,' . $id,
+            ]);
+        }
+
+        // Hapus password dari $requestData jika tidak diisi
+        if (empty($requestData['password'])) {
             unset($requestData['password']);
         } else {
+            // Enkripsi kata sandi jika diisi
             $requestData['password'] = bcrypt($requestData['password']);
         }
+
+        // Update model dengan data yang valid
         $model->fill($requestData);
         $model->save();
+        
         flash('Data Berhasil Diubah');
         return redirect()->route('user.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

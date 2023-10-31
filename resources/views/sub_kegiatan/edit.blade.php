@@ -19,6 +19,15 @@
             @csrf
             @method('PUT')
             <div class="box-body">
+                @if (Auth::user()->akses == 'admin' )
+                    <div class="form-group">
+                        <label for="">Bidang</label>
+                        {!! Form::select('bidang_id',$bidang->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
+                        <span class="text-danger">{{ $errors->first('bidang_id') }}</span> 
+                    </div>
+                @else
+                    <input type="hidden" name="bidang_id" value="{{ Auth::user()->bidang->id }}">
+                @endif
                 <div class="form-group">
                     <label for="">Nama Sub Kegiatan</label>
                         {!! Form::text('name', $subKegiatan->name, ['class'=> 'form-control', 'autofocus']) !!}

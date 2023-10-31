@@ -3,26 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class Program extends Authenticatable
+class Bidang extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasFactory;
+    protected $table = 'bidangs';
     protected $fillable = [
         'name',
-        'anggaran',
-        'bidang_id',
+        'created_at',
+        'updated_at',
     ];
 
-    // belongsTo bidang
-    public function bidang()
+    // hasMany program
+    public function programs()
     {
-        return $this->belongsTo(Bidang::class);
+        return $this->hasMany(Program::class);
     }
 
+    // hasMany kegiatan
     public function kegiatans()
     {
         return $this->hasMany(Kegiatan::class);
@@ -39,5 +38,10 @@ class Program extends Authenticatable
     {
         return $this->hasMany(SubKegiatan::class);
     }
-    
+
+    // hasMany user
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

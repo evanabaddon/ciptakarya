@@ -37,6 +37,7 @@
                                                 <th rowspan="2" class="text-center">Nama</th>
                                                 <th rowspan="2" class="text-center">No.HP</th>
                                                 <th rowspan="2" class="text-center">Email</th>
+                                                <th rowspan="2" class="text-center">Bidang</th>
                                                 <th rowspan="2" class="text-center">Akses</th>
                                                 <th rowspan="2" class="text-center">Aksi</th>
                                             </tr>
@@ -50,6 +51,11 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->nohp }}</td>
                                     <td>{{ $item->email }}</td>
+                                    <td>@if($item->bidang)
+                                        {{ $item->bidang->name }}
+                                        @else
+                                        -
+                                    @endif</td>
                                     <td>{{ $item->akses }}</td>
                                     <td>
                                         {!! Form::open([

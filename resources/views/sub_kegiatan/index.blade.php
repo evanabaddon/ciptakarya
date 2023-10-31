@@ -4,8 +4,8 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Sub Kegiatan
-            <small>List Data Sub Kegiatan</small>
+            Data Kegiatan
+            <small>List Data Kegiatan</small>
         </h1>
     </section>
     <!-- Main content -->
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">
-                        <a href="{{ route('sub-kegiatan.create') }}" class="btn btn-primary">Tambah Sub Kegiatan</a>
+                        <a href="{{ route('sub-kegiatan.create') }}" class="btn btn-primary">Tambah Kegiatan</a>
                         <div class="box-tools">
                           <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -32,8 +32,11 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Nama Kategori Kegiatan</th>
-                                        <th class="text-center">Jumlah Kegiatan</th>
+                                        @if (Auth::user()->akses == 'admin' )
+                                            <th class="text-center">Bidang</th>
+                                        @endif
+                                        <th class="text-center">Nama Kegiatan</th>
+                                        <th class="text-center">Jumlah Sub Kegiatan</th>
                                         <th class="text-center">Total Pagu</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
@@ -43,6 +46,9 @@
                                     @forelse ($models as $item)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
+                                            @if (Auth::user()->akses == 'admin' )
+                                                <td>{{ $item->bidang->name }}</td>
+                                            @endif
                                             <td>{{ $item->name }}</td>
                                             <td class="text-center">{{ $item->kegiatans->count() }}</td>
                                             <td class="text-center">{{ number_format($item->total_pagu, 0, ',', '.') }}</td>

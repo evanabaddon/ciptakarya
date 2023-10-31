@@ -12,6 +12,7 @@ class Kegiatan extends Model
     use HasApiTokens, HasFactory, Notifiable,SearchableTrait;
 
     protected $fillable = [
+        'bidang_id',
         'program_id',
         'sub_kegiatan_id',
         'kategori_kegiatan_id',
@@ -37,6 +38,11 @@ class Kegiatan extends Model
         ],
     ];
 
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
+
     public function program()
     {
         return $this->belongsTo(Program::class);
@@ -49,8 +55,8 @@ class Kegiatan extends Model
 
     public function sub_kegiatans()
     {
-        return $this->belongsTo(SubKegiatan::class);
+        return $this->belongsTo(SubKegiatan::class, 'sub_kegiatan_id');
     }
-
+    
 
 }

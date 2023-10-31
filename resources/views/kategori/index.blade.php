@@ -4,8 +4,8 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Kategori Kegiatan
-            <small>List Data Kategori Kegiatan</small>
+            Jenis Sub Kegiatan
+            <small>List Data Jenis Sub Kegiatan</small>
         </h1>
     </section>
     <!-- Main content -->
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">
-                        <a href="{{ route('kategori-kegiatan.create') }}" class="btn btn-primary">Tambah Jenis Kegiatan</a>
+                        <a href="{{ route('kategori-kegiatan.create') }}" class="btn btn-primary">Tambah Jenis Sub Kegiatan</a>
                         <div class="box-tools">
                           <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -32,9 +32,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Nama Kategori Kegiatan</th>
-                                        <th class="text-center">Jumlah Kegiatan</th>
-                                        <th class="text-center">Total Pagu</th>
+                                        <th class="text-center">Nama Jenis Sub Kegiatan</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     
@@ -44,8 +42,6 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td class="text-center">{{ $item->kegiatans->count() }}</td>
-                                            <td class="text-center">{{ number_format($item->total_pagu, 0, ',', '.') }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('kategori-kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                                 <form action="{{ route('kategori-kegiatan.destroy',$item->id) }}" method="POST"

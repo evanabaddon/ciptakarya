@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use App\Http\Requests\StoreProgramRequest;
 use App\Http\Requests\UpdateProgramRequest;
+use App\Models\Bidang;
+
 class ProgramController extends Controller
 {
     /**
@@ -12,12 +14,21 @@ class ProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     
   
 
     public function index()
     {
-        
+        // GET user bidang_id
+        $bidang_id = auth()->user()->bidang_id;
+
         $models = Program::latest()->paginate(50);
+
+        // Jika user bukan admin, filter program berdasarkan bidang_id
+        if ($bidang_id) {
+            $models = Program::where('bidang_id', $bidang_id)->latest()->paginate(50);
+        }
         return view('program.index', compact('models',));
     }
 
@@ -28,7 +39,8 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        return view('program.form');
+        $bidang = Bidang::all();
+        return view('program.form', compact('bidang'));
     }
 
     /**
@@ -64,8 +76,10 @@ class ProgramController extends Controller
      */
     public function edit(Program $program)
     {
+        $bidang = Bidang::all();
         return view('program.edit', [
-            'program' => $program
+            'program' => $program,
+            'bidang' => $bidang,
         ]);
     }
 

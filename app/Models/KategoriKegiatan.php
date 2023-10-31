@@ -17,4 +17,9 @@ class KategoriKegiatan extends Model
     {
         return $this->hasMany(Kegiatan::class);
     }
+
+    public function sub_kegiatans()
+    {
+        return $this->hasMany(SubKegiatan::class);
+    }
 }

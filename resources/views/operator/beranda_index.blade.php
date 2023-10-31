@@ -137,15 +137,15 @@
                     </div>
                 </div>
                 <div class="box-footer clearfix">
-                    <a href="{{ route('kegiatan.create') }}" class="btn btn-sm btn-info btn-flat pull-left">Tambah Kegiatan</a>
-                    <a href="{{ route('kegiatan.index') }}" class="btn btn-sm btn-default btn-flat pull-right">Semua Kegiatan</a>
+                    <a href="{{ route('kegiatan.create') }}" class="btn btn-sm btn-info btn-flat pull-left">Tambah Data</a>
+                    <a href="{{ route('kegiatan.index') }}" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Kategori Kegiatan</h3>
+                    <h3 class="box-title">Jenis Kegiatan</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -170,7 +170,7 @@
                                 @endforeach
                                 @else
                                     <tr>
-                                        <td>Tidak ada kategori kegiatan yang ditemukan.</td>
+                                        <td>Tidak ada jenis kegiatan yang ditemukan.</td>
                                     </tr>
                                 @endif
                             </tbody>
@@ -178,8 +178,8 @@
                     </div>
                 </div>
                 <div class="box-footer clearfix">
-                    <a href="{{ route('kategori-kegiatan.create') }}" class="btn btn-sm btn-info btn-flat pull-left">Tambah Kategori</a>
-                    <a href="{{ route('kategori-kegiatan.index') }}" class="btn btn-sm btn-default btn-flat pull-right">Semua Kategori</a>
+                    <a href="{{ route('kategori-kegiatan.create') }}" class="btn btn-sm btn-info btn-flat pull-left">Tambah Data</a>
+                    <a href="{{ route('kategori-kegiatan.index') }}" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
                 </div>
             </div>
         </div>

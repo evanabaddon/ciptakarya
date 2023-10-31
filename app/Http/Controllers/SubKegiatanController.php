@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SubKegiatan;
 use App\Http\Requests\StoreSubKegiatanRequest;
 use App\Http\Requests\UpdateSubKegiatanRequest;
+use App\Models\Bidang;
 
 class SubKegiatanController extends Controller
 {
@@ -15,8 +16,16 @@ class SubKegiatanController extends Controller
      */
     public function index()
     {
-        
-        $models = SubKegiatan::with('kegiatans')->paginate(25);
+        // GET user bidang_id
+        $bidang_id = auth()->user()->bidang_id;
+
+        // jika $bidang_id, maka tampilkan berdasarkan bidang_id
+        if ($bidang_id) {
+            $models = SubKegiatan::where('bidang_id', $bidang_id)->latest()->paginate(50);
+        } else {
+            $models = SubKegiatan::latest()->paginate(50);
+        }
+
         return view('sub_kegiatan.index', compact('models'));
     }
 
@@ -27,7 +36,9 @@ class SubKegiatanController extends Controller
      */
     public function create()
     {
-        return  view('sub_kegiatan.form');
+        $bidang = Bidang::all();
+
+        return  view('sub_kegiatan.form', compact('bidang'));
     }
 
     /**
@@ -64,8 +75,10 @@ class SubKegiatanController extends Controller
      */
     public function edit(SubKegiatan $subKegiatan)
     {
+        $bidang = Bidang::all();
         return view('sub_kegiatan.edit',[
-            'subKegiatan'=>$subKegiatan
+            'subKegiatan'=>$subKegiatan,
+            'bidang'=>$bidang
         ]);
     }
 

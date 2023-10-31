@@ -24,6 +24,7 @@ class StoreKegiatanRequest extends FormRequest
     public function rules()
     {
         return [
+            'bidang_id' => 'required|exists:bidangs,id',
             'program_id' => 'required',
             'kategori_kegiatan_id' => 'required',
             'sub_kegiatan_id' => 'required',

@@ -45,7 +45,12 @@
                         'admin' => 'Admin'
                     ], null, ['class'=> 'form-control']) !!}
                     <span class="text-danger">{{ $errors->first('akses') }}</span>  
-                </div>      
+                </div>  
+                <div class="form-group mt-3">
+                    <label for="">Bidang</label>
+                    {!! Form::select('bidang_id', $bidang, null, ['class'=> 'form-control']) !!}
+                    <span class="text-danger">{{ $errors->first('bidang_id') }}</span>  
+                </div>    
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

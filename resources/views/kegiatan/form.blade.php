@@ -19,26 +19,31 @@
             @csrf
             <div class="box-body">
                 <div class="form-group">
+                    <label for="">Bidang</label>
+                    {!! Form::select('bidang_id', ['' => '--- Pilih Bidang ---'] + $bidang->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
+                    <span class="text-danger">{{ $errors->first('bidang_id') }}</span> 
+                </div>
+                <div class="form-group">
                     <label for="">Program</label>
                     {!! Form::select('program_id', ['' => '--- Pilih Program ---'] + $program->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
                     <span class="text-danger">{{ $errors->first('program_id') }}</span> 
                 </div>
                 <div class="form-group">
-                    <label for="">Sub Kegiatan</label>
+                    <label for="">Kegiatan</label>
                     {!! Form::select('sub_kegiatan_id', ['' => '--- Pilih Sub Kegiatan ---'] + $subKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
                     <span class="text-danger">{{ $errors->first('sub_kegiatan_id') }}</span> 
                 </div>
                 <div class="horizontal-divider mt-lg-5 mb-lg-5">
-                    <span>Detail Kegiatan</span>
+                    <span>Detail Sub Kegiatan</span>
                 </div>
                 <div class="form-group">
-                    <label for="">Nama Kegiatan</label>
+                    <label for="">Nama Sub Kegiatan</label>
                     {!! Form::text('name', null, ['class'=> 'form-control', 'autofocus']) !!}
                     <span class="text-danger">{{ $errors->first('name') }}</span>  
                 </div>
                 <div class="form-group">
-                    <label for="">Jenis Kegiatan</label>
-                    {!! Form::select('kategori_kegiatan_id', ['' => '--- Pilih Jenis Kegiatan ---'] + $kategoriKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
+                    <label for="">Jenis Sub Kegiatan</label>
+                    {!! Form::select('kategori_kegiatan_id', ['' => '--- Pilih Jenis Sub Kegiatan ---'] + $kategoriKegiatan->pluck('name', 'id')->toArray(), null, ['class' => 'form-control select2']) !!}
                     <span class="text-danger">{{ $errors->first('kategori_kegiatan_id') }}</span> 
                 </div>
                 <div class="row">
@@ -72,41 +77,44 @@
                             <label for="">Nilai Kontrak</label>
                             <div class="input-group input-group-merge">
                                 <span class="input-group-addon">Rp</span>
-                                <input type="text" name="nilaikontrak" data-rupiah="true" class="form-control" placeholder="0" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" id="nilaikontrak" name="nilaikontrak" data-rupiah="true" class="form-control" placeholder="0" aria-label="Amount (to the nearest dollar)">
                             </div>
                             <span class="text-danger">{{ $errors->first('nilaikontrak') }}</span>  
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <div class="form-group mt-3">
-                            <label for="">Nomor Kontrak</label>
-                            {!! Form::text('nokontrak', null, ['class'=> 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('nokontrak') }}</span>  
+                <!-- Nomor Kontrak, Tanggal Kontrak, Batas Waktu Pelaksanaan (Hari), dan Nama Penyedia -->
+                <div id="kontrak-details" style="display: none;">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <div class="form-group mt-3">
+                                <label for="">Nomor Kontrak</label>
+                                {!! Form::text('nokontrak', null, ['class'=> 'form-control', 'autofocus']) !!}
+                                <span class="text-danger">{{ $errors->first('nokontrak') }}</span>  
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <div class="form-group mt-3">
+                                <label for="">Tanggal Kontrak</label>
+                                {!! Form::date('tglkontrak', null,  ['class'=> 'form-control', 'autofocus']) !!}
+                                <span class="text-danger">{{ $errors->first('tglkontrak') }}</span>  
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="form-group mt-3">
-                            <label for="">Tanggal Kontrak</label>
-                            {!! Form::date('tglkontrak', null,  ['class'=> 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('tglkontrak') }}</span>  
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <div class="form-group mt-3">
+                                <label for="">Batas Waktu Pelaksanaan (Hari)</label>
+                                {!! Form::text('bataspelaksanaan', null, ['class'=> 'form-control', 'autofocus']) !!}
+                                <span class="text-danger">{{ $errors->first('bataspelaksanaan') }}</span>  
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <div class="form-group mt-3">
-                            <label for="">Batas Waktu Pelaksanaan (Hari)</label>
-                            {!! Form::text('bataspelaksanaan', null, ['class'=> 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('bataspelaksanaan') }}</span>  
-                        </div>
-                    </div>
-                    <div class="mb-3 col-md-6">
-                        <div class="form-group mt-3">
-                            <label for="">Nama Penyedia</label>
-                            {!! Form::text('penyedia', null, ['class'=> 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('penyedia') }}</span>  
+                        <div class="mb-3 col-md-6">
+                            <div class="form-group mt-3">
+                                <label for="">Nama Penyedia</label>
+                                {!! Form::text('penyedia', null, ['class'=> 'form-control', 'autofocus']) !!}
+                                <span class="text-danger">{{ $errors->first('penyedia') }}</span>  
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,5 +189,23 @@
             });
         });
     });
+</script>
+<script>
+    // Fungsi ini akan dipanggil saat nilai kontrak berubah
+    function checkNilaikontrak() {
+        // Ambil nilai kontrak
+        var nilaikontrak = document.getElementById("nilaikontrak").value;
+        // Cek apakah nilaikontrak terisi atau tidak
+        if (nilaikontrak !== "") {
+            // Jika terisi, tampilkan elemen-elemen kontrak-details
+            document.getElementById("kontrak-details").style.display = "block";
+        } else {
+            // Jika tidak terisi, sembunyikan elemen-elemen kontrak-details
+            document.getElementById("kontrak-details").style.display = "none";
+        }
+    }
+
+    // Pasang event listener untuk memanggil fungsi checkNilaikontrak saat nilai kontrak berubah
+    document.getElementById("nilaikontrak").addEventListener("input", checkNilaikontrak);
 </script>
 @endsection

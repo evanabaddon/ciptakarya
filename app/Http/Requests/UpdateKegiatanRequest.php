@@ -24,6 +24,7 @@ class UpdateKegiatanRequest extends FormRequest
     public function rules()
     {
         return [
+            'bidang_id' => 'required|exists:bidangs,id',
             'program_id' => 'required|exists:programs,id',
             'kategori_kegiatan_id' => 'required|exists:kategori_kegiatans,id',
             'sub_kegiatan_id' => 'required|exists:sub_kegiatans,id',

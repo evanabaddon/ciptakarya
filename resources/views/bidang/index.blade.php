@@ -4,8 +4,8 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Data Program
-            <small>List Data Program Bidang Permukiman</small>
+            Data Bidang
+            <small>List Data Bidang</small>
         </h1>
     </section>
     <!-- Main content -->
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">
-                        <a href="{{ route('program.create') }}" class="btn btn-primary">Tambah Program</a>
+                        <a href="{{ route('bidang.create') }}" class="btn btn-primary">Tambah Bidang</a>
                         <div class="box-tools">
                           <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -32,12 +32,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">NO</th>
-                                        <th class="text-center">Nama Program</th>
-                                        @if (Auth::user()->akses == 'admin')
-                                            <th class="text-center">Bidang</th>
-                                        @endif
-                                        <th class="text-center">Jumlah Kegiatan</th>
-                                        <th class="text-center">Anggaran Program (Rp)</th>
+                                        <th class="text-center">Nama Bidang</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     
@@ -47,14 +42,9 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
-                                            @if (Auth::user()->akses == 'admin')
-                                                <td>{{ $item->bidang->name }}</td>
-                                            @endif
-                                            <td class="text-center">{{ $item->kegiatans->count() }}</td>
-                                            <td class="text-right">{{ number_format($item->anggaran, 0, ',', '.') }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('program.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                                <form action="{{ route('program.destroy',$item->id) }}" method="POST"
+                                                <a href="{{ route('bidang.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                                <form action="{{ route('bidang.destroy',$item->id) }}" method="POST"
                                                     onsubmit="return confirm('{{ trans('Anda yakin akan menghapus? ') }}');"
                                                     style="display: inline-block;">
                                                     <input type="hidden" name="_method" value="DELETE">
@@ -65,7 +55,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td style="text-align: center" colspan="6">Data tidak ada</td>
+                                            <td style="text-align: center" colspan="12">Data tidak ada</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

@@ -12,6 +12,28 @@
 
 namespace App\Models{
 /**
+ * App\Models\Bidang
+ *
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Program> $programs
+ * @property-read int|null $programs_count
+ * @method static \Database\Factories\BidangFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bidang whereUpdatedAt($value)
+ */
+	class Bidang extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\KategoriKegiatan
  *
  * @property int $id
@@ -37,6 +59,7 @@ namespace App\Models{
  * App\Models\Kegiatan
  *
  * @property int $id
+ * @property int|null $bidang_id
  * @property int $program_id
  * @property string $kategori_kegiatan_id
  * @property string $name
@@ -55,6 +78,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $sub_kegiatan_id
+ * @property-read \App\Models\Bidang|null $bidang
  * @property-read \App\Models\KategoriKegiatan|null $kategori_kegiatan
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
@@ -69,6 +93,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan search($search, $threshold = null, $entireText = false, $entireTextOnly = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan searchRestricted($search, $restriction, $threshold = null, $entireText = false, $entireTextOnly = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereBataspelaksanaan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereBidangId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereDesa($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Kegiatan whereFisik($value)
@@ -100,6 +125,7 @@ namespace App\Models{
  * @property string|null $anggaran
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Bidang|null $bidang
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kegiatan> $kegiatans
  * @property-read int|null $kegiatans_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications

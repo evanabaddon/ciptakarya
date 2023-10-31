@@ -20,15 +20,15 @@
                         </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding chart-container">
+                    <div class="box-body table-responsive no-padding">
 
                         <table class="table table-bordered table-striped table-smaller-font">
                             <thead>
                               <tr>
-                                <th style="text-align: center; vertical-align: middle; width: 50px" rowspan="2">NO</th>
-                                <th style="text-align: center; vertical-align: middle; width: 150px" rowspan="2">Bulan</th>
-                                <th style="text-align: center; vertical-align: middle; width: 150px" rowspan="2">Jumlah (Rp)</th>
-                                <th style="text-align: center; vertical-align: middle; width: 100px" rowspan="2">Bobot (%)</th>
+                                <th style="text-align: center; vertical-align: middle" rowspan="2">NO</th>
+                                <th style="text-align: center; vertical-align: middle" rowspan="2">Bulan</th>
+                                <th style="text-align: center; vertical-align: middle" rowspan="2">Jumlah</th>
+                                <th style="text-align: center; vertical-align: middle" rowspan="2">Bobot %</th>
                                 <th style="text-align: center" colspan="3">Triwulan I</th>
                                 <th style="text-align: center" colspan="3">Triwulan II</th>
                                 <th style="text-align: center" colspan="3">Triwulan III</th>
@@ -54,8 +54,8 @@
                               <tr>
                                 <td style="text-align: center">1</td>
                                 <td>JANUARI</td>
-                                <td>{{ number_format($totalPaguPerBulan[1] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[1] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -73,8 +73,8 @@
                               <tr>
                                 <td style="text-align: center">2</td>
                                 <td>FEBRUARI</td>
-                                <td>{{ number_format($totalPaguPerBulan[2] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[2] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -92,8 +92,8 @@
                               <tr>
                                 <td style="text-align: center">3</td>
                                 <td>MARET</td>
-                                <td>{{ number_format($totalPaguPerBulan[3] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[3] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -111,8 +111,8 @@
                               <tr>
                                 <td style="text-align: center">4</td>
                                 <td>APRIL</td>
-                                <td>{{ number_format($totalPaguPerBulan[4] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[4] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -130,8 +130,8 @@
                               <tr>
                                 <td style="text-align: center">5</td>
                                 <td>MEI</td>
-                                <td>{{ number_format($totalPaguPerBulan[5] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[5] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -149,8 +149,8 @@
                               <tr>
                                 <td style="text-align: center">6</td>
                                 <td>JUNI</td>
-                                <td>{{ number_format($totalPaguPerBulan[6] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[6] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -168,8 +168,8 @@
                               <tr>
                                 <td style="text-align: center">7</td>
                                 <td>JULI</td>
-                                <td>{{ number_format($totalPaguPerBulan[7] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ $bobotPerBulan[7] ?? 0,  }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -187,8 +187,8 @@
                               <tr>
                                 <td style="text-align: center">8</td>
                                 <td>AGUSTUS</td>
-                                <td>{{ number_format($totalPaguPerBulan[8] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[8] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -206,8 +206,8 @@
                               <tr>
                                 <td style="text-align: center">9</td>
                                 <td>SEPTEMBER</td>
-                                <td>{{ number_format($totalPaguPerBulan[9] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[9] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -225,8 +225,8 @@
                               <tr>
                                 <td style="text-align: center">10</td>
                                 <td>OKTOBER</td>
-                                <td>{{ number_format($totalPaguPerBulan[10] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[10] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -244,8 +244,8 @@
                               <tr>
                                 <td style="text-align: center">11</td>
                                 <td>NOVEMBER</td>
-                                <td>{{ number_format($totalPaguPerBulan[11] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[11] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -263,8 +263,8 @@
                               <tr>
                                 <td style="text-align: center">12</td>
                                 <td>DESEMBER</td>
-                                <td>{{ number_format($totalPaguPerBulan[12] ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ number_format($bobotPerBulan[12] ?? 0, 2) }}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -281,20 +281,20 @@
                               </tr>
                               <tr>
                                 <td colspan="2">TOTAL</td>
-                                <td>{{ number_format($totalPagu, 0, ',', '.') }}</td>
+                                <td></td>
                                 <td>100</td>
-                                <td>JAN</td>
-                                <td>FEB</td>
-                                <td>MAR</td>
-                                <td>APR</td>
-                                <td>MEI</td>
-                                <td>JUN</td>
-                                <td>JUL</td>
-                                <td>AGU</td>
-                                <td>SEP</td>
-                                <td>OKT</td>
-                                <td>NOV</td>
-                                <td>DES</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                               </tr>
                               <tr>
@@ -365,11 +365,11 @@
                         </table>
                         
 
-                        {{-- <div class="container">
+                        <div class="container">
                             <div class="chart">
                                 <canvas id="kurvaSChart"></canvas>
                             </div>
-                        </div> --}}
+                        </div>
                             
                     </div> 
                         
@@ -411,14 +411,14 @@
             responsive: true,
             scales: {
                 x: {
-                    display: false,
+                    display: true,
                     title: {
                         display: true,
                         text: 'Bulan'
                     }
                 },
                 y: {
-                    display: false,
+                    display: true,
                     title: {
                         display: true,
                         text: 'Nilai'
@@ -439,7 +439,7 @@
         printWindow.document.write('body { font-family: "Source Sans Pro", sans-serif; }');
         printWindow.document.write('</style>');
 
-        printWindow.document.write('<head><body>');
+        printWindow.document.write('</head><body>');
         printWindow.document.write('<h3>Grafik Kurva-S Keseluruhan</h3>'); // Tambahkan judul di sini
         printWindow.document.write('<img src="' + kurvaSChart.toBase64Image() + '">');
         printWindow.document.write('</body></html>');
@@ -451,5 +451,4 @@
         }, 1000); // Penundaan selama 1000ms (1 detik)
     }
 </script>
-
 @endsection

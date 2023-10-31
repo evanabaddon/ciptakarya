@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'nohp',
-        'akses'
+        'akses',
+        'bidang_id',
     ];
 
     /**
@@ -43,4 +44,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // belongsTo bidang
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
 }

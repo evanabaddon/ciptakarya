@@ -24,8 +24,8 @@ class StoreSubKegiatanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
             'name' => 'required',
+            'bidang_id' => 'required',
         ];
     }
 }
